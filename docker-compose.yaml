@@ -1,48 +1,59 @@
-version: "3.2"
-services:
-   php_app:
-       build:
-          context: .
-          dockerfile: ./.docker/php/Dockerfile
-       container_name: lara
-       volumes:
-           - ./lara:/var/www/html
-       ports: 
-       - "8000:80"
-       env_file:
-           - ./lara/.env
-       networks:
-       - app
-     
-   api_php:
-       build:
-          context: .
-          dockerfile: ./.docker/php/Dockerfile
-       container_name: api
-       volumes:
-           - ./api:/var/www/html
-       ports: 
-       - "4000:80"
-       env_file:
-           - ./api/.env
-       networks:
-       - app
+version: '3.1'
 
-   pgdb:
-      image: postgres
-      container_name: pgdb
-      environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=postgres   
-      - POSTGRES_DB=postgres  
-      ports:
-      - "5432:5432"
-      volumes:
-      - ./postgres:/data/postgres 
-      networks:
+services:
+
+  back:
+    build: .docker/php
+    container_name: back
+    ports: 
+      - "8000:80"
+    volumes: 
+      - ./movaTest:/var/www/html
+    env_file:
+           - ./movaTest/.env
+    networks:
+      - app    
+    
+
+
+  db:
+    build: .docker/mysql
+    container_name: db
+    restart: always
+    volumes:
+      - "./.docker/dbdata:/var/lib/mysql"
+    environment: 
+      MYSQL_ROOT_PASSWORD: A_1234567
+      MYSQL_DATABASE: laravel
+    ports: 
+      - "3307:3306"
+    networks:
       - app      
 
-   pgadm:
+  phpmyadmin: 
+    image: phpmyadmin
+    container_name: myadmin
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - app    
+
+  pgdb:
+    image: postgres
+    container_name: pgdb
+    environment:
+    - POSTGRES_USER=admin
+    - POSTGRES_PASSWORD=postgres   
+    - POSTGRES_DB=postgres  
+    ports:
+    - "5432:5432"
+    volumes:
+    - ./.docker/pgdata:/var/lib/postgresql/data 
+    networks:
+    - app      
+
+  pgadm:
     image: dpage/pgadmin4
     container_name: pgadm
     restart: always
