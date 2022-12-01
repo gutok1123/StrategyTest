@@ -6,6 +6,9 @@
 Criar uma api que retorne mensagens diferentes por dias da semana
 A aplicação seguiu o padrão strategy.
 
+##EndPoint
+http://localhost:8000/api/message
+
 ## Inputs Possiveis:
 
 ```json
