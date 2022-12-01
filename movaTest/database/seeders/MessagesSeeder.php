@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Enum\Days\WeekdayMessageEnum;
-use App\Models\Messages as MessagesModel;
+use App\Enums\WeekdayMessageEnum;
+use App\Models\Message as MessagesModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -32,7 +32,7 @@ class MessagesSeeder extends Seeder
           ],
           [
             'day_of_week'=> WeekdayMessageEnum::TUESDAY ,
-            'message'=> 'Terça-feira , boa semana :)'
+            'message'=> 'Terca-Feira , boa semana :)'
           ],
           [
             'day_of_week'=> WeekdayMessageEnum::WEDNESDAY ,
