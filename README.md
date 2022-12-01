@@ -57,7 +57,11 @@ http://localhost:8000/api/message
 * "docker-compose up -d --build" dentro da pasta que foi clonada anteriormente(Para subir o ambiente docker).
 
 * "docker exec -it back bash"(Para entrar no container onde instalaremos todas as dependências laravel).
+
 * "composer install" após entrar no container.
+
+*Após rodar o composer install rode esses dois comandos por precaução, pois se o laravel não tiver permissão para escrever algum log
+dentro do container ele simplemente para de rodar, então é interessante executar "chgrp -R www-data storage bootstrap/cache" e "chmod -R ug+rwx storage bootstrap/cache"
 
 * "php artisan migrate"(Para subir as migrações para o pgdb,lembrando, sua interface o pgAdmin que esta na porta 5050) link:http//localhost:5050.
 
